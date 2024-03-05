@@ -11,9 +11,11 @@ function createBlobService(accountName, accessKey) {
 
 async function getTheImage(accountName, accessKey, imagePath) {
     const blobService = createBlobService(accountName, accessKey);
+
     const containerName = "philosophers";
     const containerClient = blobService.getContainerClient(containerName);
     const blobClient = containerClient.getBlobClient(imagePath);
+    
     const properties = await blobClient.getProperties();
     const response = await blobClient.download();
     return [response, properties];
