@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require("express");
 const { getTheImage } = require("./file-storage");
 
@@ -8,14 +8,18 @@ const storageAccessKey = process.env.STORAGE_ACCESS_KEY;
 
 const app = express();
 
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+});
+
 app.get("/image", async (req, res) => {
     const imagePath = req.query.path;
 
-    const { response, properties } = await getTheImage(storageAccountName, storageAccessKey, imagePath);
+    const [ response, properties ] = await getTheImage(storageAccountName, storageAccessKey, imagePath);
 
     res.writeHead(200, {
         "Content-Length": properties.contentLength,
-        "Content-Type": "image/jpg"
+        "Content-Type": "image.jpeg"
     });
 
     response.readableStreamBody.pipe(res);
