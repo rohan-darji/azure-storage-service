@@ -1,4 +1,4 @@
-const { BlobServiceClient, StorageSharedKeyCredential } = require("@azure/storage-blob")
+const { BlobServiceClient, StorageSharedKeyCredential } = require("@azure/storage-blob"); 
 
 function createBlobService(accountName, accessKey) {
     const sharedKeyCredential = new StorageSharedKeyCredential(accountName, accessKey);
@@ -9,17 +9,17 @@ function createBlobService(accountName, accessKey) {
     return blobService;
 }
 
-async function getTheImage(accountName, accessKey, imagePath) {
+async function getTheImage(accountName, accessKey, imagePath){
     const blobService = createBlobService(accountName, accessKey);
 
-    const containerName = "philosophers";
+    const containerName = 'philosophers';
     const containerClient = blobService.getContainerClient(containerName);
-    const blobClient = containerClient.getBlobClient(imagePath);
+    const blobClient = containerClient.getBlobClient(imagePath);  
 
     const properties = await blobClient.getProperties();
     const response = await blobClient.download();
+
     return [response, properties];
-  }
-  
-  module.exports = { getTheImage };
-  
+}
+
+module.exports = { getTheImage };

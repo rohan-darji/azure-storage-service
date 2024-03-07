@@ -1,6 +1,6 @@
 require('dotenv').config();
-const express = require("express");
-const { getTheImage } = require("./file-storage");
+const express = require('express');
+const { getTheImage } = require('./file-storage');
 
 const PORT = process.env.PORT;
 const storageAccountName = process.env.STORAGE_ACCOUNT_NAME;
@@ -12,10 +12,10 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
-app.get("/image", async (req, res) => {
+app.get('/image', async (req, res) => {
     const imagePath = req.query.path;
 
-    const [ response, properties ] = await getTheImage(storageAccountName, storageAccessKey, imagePath);
+    const [response, properties] = await getTheImage(storageAccountName, storageAccessKey, imagePath);
 
     res.writeHead(200, {
         "Content-Length": properties.contentLength,
@@ -26,5 +26,5 @@ app.get("/image", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Azure storage service is up and listening to port ${PORT}`);
+    console.log(`Azure storage service is running on port ${PORT}.`);
 });
